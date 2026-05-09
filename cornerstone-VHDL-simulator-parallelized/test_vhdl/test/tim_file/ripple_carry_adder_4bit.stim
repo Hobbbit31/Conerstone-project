@@ -1,0 +1,36 @@
+# 4-bit Ripple Carry Adder stimulus
+#
+# Bit ordering: A0=LSB, A3=MSB
+#
+# Test 1 @ t=10 : 3 + 5 = 8
+#   A = 0011 (A0=1, A1=1, A2=0, A3=0)
+#   B = 0101 (B0=1, B1=0, B2=1, B3=0)
+#   Expected: SUM=1000 (SUM0=0,SUM1=0,SUM2=0,SUM3=1), COUT=0
+#
+# Test 2 @ t=30 : 7 + 7 = 14
+#   A = 0111 (A0=1, A1=1, A2=1, A3=0)
+#   B = 0111 (B0=1, B1=1, B2=1, B3=0)
+#   Expected: SUM=1110 (SUM0=0,SUM1=1,SUM2=1,SUM3=1), COUT=0
+#
+# Test 3 @ t=50 : 15 + 1 = 16  (overflow: SUM=0000, COUT=1)
+#   A = 1111 (A0=1, A1=1, A2=1, A3=1)
+#   B = 0001 (B0=1, B1=0, B2=0, B3=0)
+#   Expected: SUM=0000, COUT=1
+
+# ── Test 1: 3 + 5 = 8 ─────────────────────────────────────────
+@10 A0=1
+@10 A1=1
+@10 B0=1
+@10 B2=1
+
+# ── Test 2: 7 + 7 = 14 ────────────────────────────────────────
+# Changes from test 1: A2: 0->1, B1: 0->1
+@30 A2=1
+@30 B1=1
+
+# ── Test 3: 15 + 1 = 16 (overflow) ────────────────────────────
+# Changes from test 2: A3: 0->1, B2: 1->0, B1: 1->0
+@50 A3=1
+@50 B1=0
+@50 B2=0
+@100 CIN=0

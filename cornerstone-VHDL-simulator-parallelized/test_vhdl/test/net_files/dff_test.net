@@ -1,0 +1,12 @@
+# D Flip-Flop test circuit
+# Inputs:  CLK, D
+# Outputs: Q, Q_NOT
+#
+# On rising edge of CLK: Q = D, Q_NOT = ~D
+
+signal CLK   0
+signal D     0
+signal Q     0
+signal Q_NOT 1
+
+dff Q Q_NOT CLK D

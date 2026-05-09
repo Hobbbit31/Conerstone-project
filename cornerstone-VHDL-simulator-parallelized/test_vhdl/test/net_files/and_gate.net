@@ -1,0 +1,11 @@
+# AND gate circuit
+# Inputs:  A, B
+# Output:  OUT
+#
+# OUT = A AND B
+
+signal A   0
+signal B   0
+signal OUT 0
+
+and OUT A B

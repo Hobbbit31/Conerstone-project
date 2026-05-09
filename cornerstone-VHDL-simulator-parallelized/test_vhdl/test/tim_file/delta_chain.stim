@@ -1,0 +1,13 @@
+# Delta-chain stimulus
+#
+# A=1 at t=0: triggers 3-level delta propagation at the same time step
+#   t=0 delta=1 : B = NOT(1) = 0
+#   t=0 delta=2 : C = NOT(0) = 1
+#   t=0 delta=3 : OUT = AND(A=1, C=1) = 1
+#
+# A=0 at t=10: chain collapses back
+#   t=10 delta=1 : B = NOT(0) = 1
+#   t=10 delta=2 : C = NOT(1) = 0
+#   t=10 delta=3 : OUT = AND(A=0, C=0) = 0
+@0  A=1
+@10 A=0

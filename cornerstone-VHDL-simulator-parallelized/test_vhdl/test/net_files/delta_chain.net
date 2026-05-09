@@ -1,0 +1,20 @@
+# Delta-chain test circuit
+# Proves multi-level delta-cycle propagation
+#
+# A --> [NOT] --> B --> [NOT] --> C --> [AND(A,C)] --> OUT
+#
+# When A=1:
+#   delta=1 : NOT fires -> B = 0
+#   delta=2 : NOT fires -> C = 1
+#   delta=3 : AND fires -> OUT = A & C = 1 & 1 = 1
+#
+# All at the same simulation time — proves delta chain settles correctly
+
+signal A   0
+signal B   1
+signal C   0
+signal OUT 0
+
+not B   A
+not C   B
+and OUT A C

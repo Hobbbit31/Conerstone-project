@@ -1,0 +1,33 @@
+# Full Adder stimulus — all 8 input combinations
+# Expected: SUM = A^B^CIN, COUT = majority(A,B,CIN)
+
+# A=0 B=0 CIN=0 → SUM=0 COUT=0
+@0   A=0
+@0   B=0
+@0   CIN=0
+
+# A=1 B=0 CIN=0 → SUM=1 COUT=0
+@10  A=1
+
+# A=0 B=1 CIN=0 → SUM=1 COUT=0
+@20  A=0
+@20  B=1
+
+# A=1 B=1 CIN=0 → SUM=0 COUT=1
+@30  A=1
+
+# A=0 B=0 CIN=1 → SUM=1 COUT=0
+@40  A=0
+@40  B=0
+@40  CIN=1
+
+# A=1 B=0 CIN=1 → SUM=0 COUT=1
+@50  A=1
+
+# A=0 B=1 CIN=1 → SUM=0 COUT=1
+@60  A=0
+@60  B=1
+
+# A=1 B=1 CIN=1 → SUM=1 COUT=1
+@70  A=1
+

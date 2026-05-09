@@ -1,0 +1,82 @@
+# 4-bit Ripple Carry Adder
+# Inputs:  A3..A0, B3..B0, CIN
+# Outputs: SUM3..SUM0, COUT
+#
+# Each bit uses a full adder:
+#   SUM_i  = A_i XOR B_i XOR CIN_i
+#   COUT_i = (A_i AND B_i) OR (CIN_i AND (A_i XOR B_i))
+#   CIN_{i+1} = COUT_i
+#
+# Carry ripples from bit 0 through bit 3 across delta cycles.
+# Total: 20 gates, 30 signals
+
+# ── Primary inputs ─────────────────────────────────────────────
+signal A0  0
+signal A1  0
+signal A2  0
+signal A3  0
+signal B0  0
+signal B1  0
+signal B2  0
+signal B3  0
+signal CIN 0
+
+# ── Primary outputs ────────────────────────────────────────────
+signal SUM0 0
+signal SUM1 0
+signal SUM2 0
+signal SUM3 0
+signal COUT 0
+
+# ── Internal carry chain ───────────────────────────────────────
+signal C0 0
+signal C1 0
+signal C2 0
+
+# ── Internal wires: bit 0 ──────────────────────────────────────
+signal AxB0  0
+signal AaB0  0
+signal CxAB0 0
+
+# ── Internal wires: bit 1 ──────────────────────────────────────
+signal AxB1  0
+signal AaB1  0
+signal CxAB1 0
+
+# ── Internal wires: bit 2 ──────────────────────────────────────
+signal AxB2  0
+signal AaB2  0
+signal CxAB2 0
+
+# ── Internal wires: bit 3 ──────────────────────────────────────
+signal AxB3  0
+signal AaB3  0
+signal CxAB3 0
+
+# ── Full Adder — Bit 0 ─────────────────────────────────────────
+xor AxB0  A0   B0
+xor SUM0  AxB0 CIN
+and AaB0  A0   B0
+and CxAB0 CIN  AxB0
+or  C0    AaB0 CxAB0
+
+# ── Full Adder — Bit 1 ─────────────────────────────────────────
+xor AxB1  A1   B1
+xor SUM1  AxB1 C0
+and AaB1  A1   B1
+and CxAB1 C0   AxB1
+or  C1    AaB1 CxAB1
+
+# ── Full Adder — Bit 2 ─────────────────────────────────────────
+xor AxB2  A2   B2
+xor SUM2  AxB2 C1
+and AaB2  A2   B2
+and CxAB2 C1   AxB2
+or  C2    AaB2 CxAB2
+
+# ── Full Adder — Bit 3 ─────────────────────────────────────────
+xor AxB3  A3   B3
+xor SUM3  AxB3 C2
+and AaB3  A3   B3
+and CxAB3 C2   AxB3
+or  COUT  AaB3 CxAB3

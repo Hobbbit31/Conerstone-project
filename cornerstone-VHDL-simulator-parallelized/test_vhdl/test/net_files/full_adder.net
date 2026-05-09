@@ -1,0 +1,24 @@
+# Full Adder circuit
+# Inputs:  A, B, CIN
+# Outputs: SUM, COUT
+#
+# SUM  = A XOR B XOR CIN
+# COUT = (A AND B) OR (CIN AND (A XOR B))
+
+signal A    0
+signal B    0
+signal CIN  0
+signal SUM  0
+signal COUT 0
+
+# Internal wires
+signal AxorB  0
+signal AandB  0
+signal CinXab 0
+
+# Gate definitions
+xor  AxorB  A    B
+xor  SUM    AxorB CIN
+and  AandB  A    B
+and  CinXab CIN  AxorB
+or   COUT   AandB CinXab

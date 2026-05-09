@@ -1,0 +1,30 @@
+# SEMANTIC VIOLATION TEST
+# This circuit exposes the lack of two-phase signal update.
+#
+# Circuit:
+#   B = NOT A
+#   C = A AND B
+#   D = NOT C
+#
+# When A changes from 0→1:
+#   CORRECT (VHDL semantics):
+#     All processes at same delta see OLD values.
+#     AND sees old B=1, computes C = 1 AND 1 = 1
+#     Then next delta: AND sees new B=0, computes C = 1 AND 0 = 0
+#     C going 0→1→0 triggers NOT_C twice, D ends up = 1
+#
+#   BUGGY (current simulator):
+#     If NOT fires before AND at same delta:
+#       NOT sets B=0 immediately
+#       AND sees UPDATED B=0, computes C = 1 AND 0 = 0 (no change)
+#       C never transitions, NOT_C never fires, D stays 0
+#       FINAL VALUE IS WRONG: D=0 instead of D=1
+
+signal A 0
+signal B 1
+signal C 0
+signal D 0
+
+not B A
+and C A B
+not D C

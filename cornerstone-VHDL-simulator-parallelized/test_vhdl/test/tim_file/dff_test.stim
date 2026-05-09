@@ -1,0 +1,24 @@
+# DFF test stimulus
+# D goes high before first clock edge
+@0   D=1
+
+# Rising edge: Q should capture D=1 → Q=1, Q_NOT=0
+@10  CLK=1
+
+# Falling edge: nothing should change
+@20  CLK=0
+
+# D changes while clock is LOW — Q must NOT change yet
+@30  D=0
+
+# Rising edge: Q should capture D=0 → Q=0, Q_NOT=1
+@40  CLK=1
+
+# Falling edge
+@50  CLK=0
+
+# Rising edge with D still 0: Q stays 0 (no change logged)
+@60  CLK=1
+
+# Falling edge
+@70  CLK=0
